@@ -35,5 +35,5 @@ for column in range(len(data)):
     else:
         data[column][-1] = 1
 
-np.savetxt('../src/altered_src/parsed.data', data, delimiter=',')
+np.savetxt('../src/parsed_src/parsed.data', data, delimiter=',')
 print("parsed file")
