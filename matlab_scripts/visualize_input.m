@@ -3,11 +3,7 @@ clear
 
 data_input = importdata("../src/parsed_src/parsed.data",',');
 
-count_survived = 0;
-count_died = 0;
-
-matrix_survived = [];
-matrix_died = [];
+matrix_survived = []; matrix_died = [];
 
 for c = 1:1:size(data_input,1)
     if data_input(c,4)==0
@@ -28,7 +24,11 @@ end
 
 xlabel('Age')
 ylabel('Operation year')
-zlabel('Positive aDurationxillary nodes')
+zlabel('Positive Duration sxillary nodes')
 hold off
 grid on
+
+%w = gaussm(
+
+
 
