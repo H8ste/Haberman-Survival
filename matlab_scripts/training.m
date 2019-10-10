@@ -1,7 +1,7 @@
 clc
 clear
 clear classes 
-prwaitbar report
+%prwaitbar report
 %clf('reset')
 
 load haberman.mat
@@ -15,7 +15,7 @@ class1.data = getdata(seldat(converted_input,1));
 class2.data = getdata(seldat(converted_input,2));
 % 
 % % extracting training (y) and test data (x)
-[y,x] = gendat(converted_input,[round(size(class1.data,1)*0.3) round(size(class1.data,1)*0.3)]);
+[y,x] = gendat(converted_input,[round(size(class1.data,1)*0.6) round(size(class1.data,1)*0.3)]);
 % 
 % % Builiding classifiers
 % w1 = qdc(y); w2 = ldc(y); w3 = nmsc(y); w4 = knnc(y);
@@ -33,14 +33,14 @@ class2.data = getdata(seldat(converted_input,2));
 % 
 % disp('Classification errors are:');
 % disp([testc(x*w1) testc(x*w2) testc(x*w3) testc(x*w4)])
-% 
-% 
+%
 % figure(2); hold on;
 % subplot(221);r1 = prroc(x,w1,2,100); hold on;plote(r1);hold off;
 % subplot(222);r2 = prroc(x,w2,2,100); hold on;plote(r2);hold off;
 % subplot(223);r3 = prroc(x,w3,2,100); hold on;plote(r3);hold off;
 % subplot(224);r4 = prroc(x,w4,2,100); hold on;plote(r4);hold off;
 
+%{
 % Find parameters for each class
 for k=1:K
    class(k).mean = mean(getdata(seldat(y,k)))';
@@ -67,10 +67,20 @@ for m=1:M
     [tmp,C(m)]=max(J); 
 end
 
-% Calculate error rate 
+% Calculate error rate
 E = sum(C~=x.nlab)/M
 
+%}
 
-prwaitbar
-prwaitbar(0)             %closes loop level
-prwaitbar off             %removes waitbar
+[W,H] = parzendc(y);
+
+figure()
+scatterd(y);hold on;
+
+%figure; scatterd(y,2);
+%plotm(w,1); 
+
+
+%prwaitbar
+%prwaitbar(0)             %closes loop level
+%prwaitbar off             %removes waitbar
