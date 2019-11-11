@@ -1,8 +1,8 @@
 clc
 clear
 clear classes 
-%prwaitbar report
-%clf('reset')
+prwaitbar report
+clf('reset')
 
 load haberman.mat
 
@@ -72,15 +72,27 @@ E = sum(C~=x.nlab)/M
 
 %}
 
-[W,H] = parzendc(y);
+% n = 50; a = 2; b = 1.5;
+% x = (-2:0.01:10)'; y = gampdf(x,a,b);
+% z = dataset(gamrnd(a,b,n,1),genlab(n));
+% 
+% w = parzenm(z,1);
+% 
+% figure; scatterd(z); axis([-2 10 0 0.3]);
+% plotm(w,1); hold on; plot(x,y,':');
+[W1,H] = parzendc(y);
+W2 = ldc(y);
+W3 = qdc(y);
 
-figure()
-scatterd(y);hold on;
 
+%figure()
+scatterd(y);
+%plotc({W});
+disp([testc(x*W1), testc(x*W2), testc(x*W3)]);
 %figure; scatterd(y,2);
 %plotm(w,1); 
 
 
-%prwaitbar
-%prwaitbar(0)             %closes loop level
-%prwaitbar off             %removes waitbar
+prwaitbar
+prwaitbar(0)             %closes loop level
+prwaitbar off             %removes waitbar
