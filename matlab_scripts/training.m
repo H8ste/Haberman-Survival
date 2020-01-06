@@ -1,10 +1,13 @@
 clc
 clear
 clear classes 
+close all;
 prwaitbar report
+
 clf('reset')
 
 load haberman.mat
+
 
 K = size(getlablist(converted_input),1);
 M = size(getdata(converted_input),1);
@@ -85,12 +88,114 @@ W2 = ldc(y);
 W3 = qdc(y);
 
 
+
+
 %figure()
-scatterd(y);
+%scatterd(y);
 %plotc({W});
-disp([testc(x*W1), testc(x*W2), testc(x*W3)]);
+
+% results = [ ; ; ]; lowestResults= [100;100;100]; prwarning(0); W4 =
+% randomforestc(y); for decisionTrees = 170:1:300
+%     disp(decisionTrees) for featureSize = 1:1:3
+%         Classifier = randomforestc(y,decisionTrees,featureSize);
+%         %disp('DecisionTrees: '); %disp(decisionTrees)
+%         %disp('FeatureSize: ' ); %disp(featureSize); %disp('TestResults:
+%         ' ); %disp(testc(x*Classifier)); %results = [results,
+%         [decisionTrees;featureSize;testc(x*Classifier)]]; if
+%         testc(x*Classifier) < lowestResults(3,:,1)
+%             disp('lower result has been found:'); disp('new:');
+%             disp(testc(x*Classifier)); disp('old:');
+%             disp(lowestResults(3,:,1)); lowestResults =
+%             [decisionTrees;featureSize;testc(x*Classifier)]; W4 =
+%             Classifier;
+%         end
+%     end
+% end
+prwarning(2);
+disp('Done');
+
+
+
+W4 = naivebc(y);
+
+[W5] = svc(y,proxm('p',3));
+[W6, ~ , ER] = knnc(y,5);
+
+%%sample = x;
+%%grouphat = predict(W5, sample);
+figure()
+subplot(3,2,1);
+type = 4;
+scatterd(y,2)                      % show scatterplot
+plotm(W5,type); plotc(W5);
+hold on; 
+%scatterd(y(J,:),3,'o')
+title('W5 - Support vector machine')
+xlabel('Age')
+ylabel('Year of Operation')
+zlabel('Axillary nodes')
+
+subplot(3,2,2);
+scatterd(y,2)                      % show scatterplot
+plotm(W1,type);  plotc(W1);
+hold on; 
+%scatterd(y(J,:),3,'o')
+title('W1 - ParzenDC')
+xlabel('Age')
+ylabel('Year of Operation')
+zlabel('Axillary nodes')
+
+
+subplot(3,2,3);
+scatterd(y,2)                      % show scatterplot
+plotm(W2,type); plotc(W2);
+hold on; 
+%scatterd(y(J,:),3,'o')
+title('W2 - LDC')
+xlabel('Age')
+ylabel('Year of Operation')
+zlabel('Axillary nodes')
+
+subplot(3,2,4);
+scatterd(y,2)                      % show scatterplot
+plotm(W3,type); plotc(W3);
+hold on; 
+%scatterd(y(J,:),3,'o')
+title('W3 - QDC')
+xlabel('Age')
+ylabel('Year of Operation')
+zlabel('Axillary nodes')
+
+subplot(3,2,5);
+scatterd(y,2)                      % show scatterplot
+plotm(W4,type);  plotc(W4);
+hold on; 
+%scatterd(y(J,:),3,'o')
+title('W4 - Naive bayes')
+xlabel('Age')
+ylabel('Year of Operation')
+zlabel('Axillary nodes')
+
+subplot(3,2,6);
+scatterd(y,2)                      % show scatterplot
+plotm(W6,type); plotc(W6);
+hold on; 
+%scatterd(y(J,:),3,'o')
+title('W4 - KNC')
+xlabel('Age')
+ylabel('Year of Operation')
+zlabel('Axillary nodes')
+
+
+disp([testc(x*W1), testc(x*W2), testc(x*W3), testc(x*W4), testc(x*W5)]);
+% plot classifier 
+
 %figure; scatterd(y,2);
 %plotm(w,1); 
+
+%figure(); hold on;
+%plot3(results(1,:),results(2,:),results(3,:));
+
 
 
 prwaitbar
