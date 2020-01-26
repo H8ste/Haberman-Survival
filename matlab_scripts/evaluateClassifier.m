@@ -14,7 +14,7 @@ switch M
         classifier = W;
         if ismember('roc',E) == true
 %             disp('Computing ROC');
-            temp.data = prroc(Test,Train*{qdc},1,100); temp.data.names = 'qdc ';
+            temp.data = prroc(Test,Train*{qdc},1,300); temp.data.names = 'qdc ';
             temp.type = 'plote'; temp.method = 'roc';
             if size(outputArg1,1) == 0
                 outputArg1 = [temp];
@@ -34,7 +34,7 @@ switch M
             end
         end
         if ismember('cross_validation',E) == true
-            [ERR, STDS] = prcrossval(Train,qdc,5);
+            [ERR, STDS] = prcrossval(Train,qdc,10);
             temp.data = [ERR STDS];
             temp.type = 'disp'; temp.method = 'cross_validation';
             if size(outputArg1,1) == 0
@@ -48,7 +48,7 @@ switch M
         classifier = W;
         if ismember('roc',E) == true
 %             disp('Computing ROC');
-            temp.data = prroc(Test,Train*{knnc},1,100); temp.data.names = 'knnc';
+            temp.data = prroc(Test,Train*{knnc},1,300); temp.data.names = 'knnc';
             temp.type = 'plote'; temp.method = 'roc';
             if size(outputArg1,1) == 0
                 outputArg1 = [temp];
@@ -68,7 +68,7 @@ switch M
             end
         end
         if ismember('cross_validation',E) == true
-            [ERR, STDS] = prcrossval(Train,knnc,5);
+            [ERR, STDS] = prcrossval(Train,knnc,10);
             temp.data = [ERR STDS];
             temp.type = 'disp'; temp.method = 'cross_validation';
             if size(outputArg1,1) == 0
@@ -82,7 +82,7 @@ switch M
         classifier = W;
         if ismember('roc',E) == true
 %             disp('Computing ROC');
-            temp.data = prroc(Test,Train*{ldc},1,100); temp.data.names = 'ldc ';
+            temp.data = prroc(Test,Train*{ldc},1,300); temp.data.names = 'ldc ';
             temp.type = 'plote'; temp.method = 'roc';
             if size(outputArg1,1) == 0
                 outputArg1 = [temp];
@@ -102,7 +102,7 @@ switch M
             end
         end
         if ismember('cross_validation',E) == true
-            [ERR, STDS] = prcrossval(Train,ldc,5);
+            [ERR, STDS] = prcrossval(Train,ldc,10);
             temp.data = [ERR STDS];
             temp.type = 'disp'; temp.method = 'cross_validation';
             if size(outputArg1,1) == 0

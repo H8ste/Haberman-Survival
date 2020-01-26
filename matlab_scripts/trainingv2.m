@@ -5,7 +5,7 @@ close all;
 prwaitbar report
 prwarning off
 clf('reset')
-
+    
 load haberman.mat
 load seed.mat
 
@@ -17,13 +17,24 @@ xlabel('Age')
 ylabel('Year of Operation')
 zlabel('Axillary nodes')
 
+figure();
+hold on;
+scatterd(converted_input(:,[1 3]),2,'legend');
+plotm(converted_input(:,[1 3])*qdc);
+xlabel('Feature 1')
+ylabel('Feature 2')
+hold off;
+
 K = size(getlablist(converted_input),1);
 M = size(getdata(converted_input),1);
 
 % Extracting training (y) and test data (x)
 %seed = randreset;
 %state = randreset
-[Testing,Training] = gendat(converted_input,[20 20],seed);
+[Testing,Training] = gendat(converted_input,[30 30],seed);
+
+figure()
+scatterd(Testing,3);
 % [Testing,Training] = gendat(converted_input,[20 20]);
 
 
@@ -371,9 +382,9 @@ if sum(ismember(shown_results,{'1,2,3'})) == 1
     heatmap(KNNC123_results(2).data,'ColorbarVisible','off');
     title('Subset:[1,2,3]   Method: KNNC');
     xlabel('Estimated Labels'); ylabel('True Labels');
-    print_confusion_matrix(QDC123_results(2).data,['1' '2'],'qdc');
-    print_confusion_matrix(LDC123_results(2).data,['1' '2'],'ldc');
-    print_confusion_matrix(KNNC123_results(2).data,['1' '2'],'knnc');
+    %print_confusion_matrix(QDC123_results(2).data,['1' '2'],'qdc');
+    %print_confusion_matrix(LDC123_results(2).data,['1' '2'],'ldc');
+    %print_confusion_matrix(KNNC123_results(2).data,['1' '2'],'knnc');
 
     %Show cross-validation error
     spec = '%s  \t|\tCross validation error:\t%f\n';
@@ -505,7 +516,10 @@ if sum(ismember(shown_results,{'1,3'})) == 1
         legend('Survived','Died','Survived Contours','Died contours',...
             'Location','bestoutside')
     subplot(3,1,3)
-    plotm(KNNC13_classifier,2);
+    %plotm(KNNC13_classifier,2);
+ 
+    figure()
+       scatterd(Training13,2); hold on;
     plotc(KNNC13_classifier);
         xlabel(labels(1));ylabel(labels(3));
         title('Features:[1 3]  Classifier:KNNC')
@@ -561,7 +575,7 @@ end
 %% [2,3]
 %Scatterplot the data
 
-if sum(ismember(shown_results,{'2,3'})) == 1 
+% if sum(ismember(shown_results,{'2,3'})) == 1 
     disp('Press for next set of plots');
     pause
     disp('[2,3]');
@@ -643,7 +657,7 @@ if sum(ismember(shown_results,{'2,3'})) == 1
     fprintf(1,'knnc\t|\t');   testc(Testing23*KNNC23_classifier)
     fprintf(1,'-----------------------------------------------\n')
     fprintf(1,'\n')
-end
+% end
 %% [1]
 %Scatterplot the data
 
